@@ -1,15 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#0d1117",
+        secondary: "#30363d",
+        accent: "#4085F7",
+      },
+    },
   },
-  darkMode: 'class',
+  darkMode: "class",
   plugins: [
-    
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
+    require("@tailwindcss/typography"),
   ],
-}
+};

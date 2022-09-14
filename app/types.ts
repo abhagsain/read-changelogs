@@ -1,12 +1,14 @@
-export type FormData = { name: string; from: string; to: string };
+import type { getChangelogList } from "./api.server";
 
-export interface Release {
+export type SearchFormData = { name: string; versions: string[] };
+
+export interface IChangeLog {
   url: string;
   assets_url: string;
   upload_url: string;
   html_url: string;
   id: number;
-  author: Author;
+  author: IAuthor;
   node_id: string;
   tag_name: string;
   target_commitish: string;
@@ -22,7 +24,7 @@ export interface Release {
   html: string;
 }
 
-export interface Author {
+export interface IAuthor {
   login: string;
   id: number;
   node_id: string;
@@ -107,7 +109,7 @@ export interface Metadata {
   description: string;
   keywords: string[];
   date: Date;
-  author: Author;
+  author: IAuthor;
   publisher: Publisher;
   maintainers: Publisher[];
   repository: Repository;
@@ -122,7 +124,7 @@ export interface Metadata {
   readme: string;
 }
 
-export interface Author {
+export interface IAuthor {
   name: string;
   email: string;
   url: string;
@@ -238,4 +240,11 @@ export interface Detail {
   quality: number;
   popularity: number;
   maintenance: number;
+}
+
+export type LoaderData = Awaited<ReturnType<typeof getChangelogList>>;
+
+export interface AutocompleteOption {
+  label: string;
+  value: string;
 }
