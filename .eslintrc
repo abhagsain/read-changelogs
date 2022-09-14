@@ -1,3 +1,14 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"]
+  "extends": [
+    "@remix-run/eslint-config",
+    "@remix-run/eslint-config/node"
+  ],
+  "settings": {
+    "files": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.ts",
+      "**/*.tsx"
+    ]
+  }
 }

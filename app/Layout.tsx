@@ -6,7 +6,7 @@ type Props = {
 
 function Layout({ children }: Props) {
   return (
-    <div className="prose max-w-full prose-img:rounded-xl prose-headings:underline prose-a:text-cyan-500 dark:prose-invert">
+    <div className="max-w-full prose prose-img:rounded-xl prose-headings:underline prose-a:text-cyan-500 dark:prose-invert">
       {children}
     </div>
   );
