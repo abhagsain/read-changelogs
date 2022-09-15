@@ -49,6 +49,7 @@ export async function action({ request }: ActionArgs) {
           const releases = await getReleaseTags(ownerName, repoName);
           return json({ type: FETCH_RELEASE_TAGS, releases });
         } catch (error: any) {
+          console.log("🚀 - file: index.tsx - line 52 - action - error", error)
           return json({ error: `${packageName} not found` }, { status: 404 });
         }
       }

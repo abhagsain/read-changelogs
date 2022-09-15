@@ -54,10 +54,11 @@ const getReleaseTags = async ({ authorName, repoName, query, RELEASE }) => {
       }
       const ondDayTTL = 1 * 24 * 60 * 60
       await RELEASE.put(KV_KEY, JSON.stringify(data), {
-        expiration: ondDayTTL,
+        expirationTtl: ondDayTTL,
       })
       return json(data)
     } catch (err) {
+      console.log('🚀 - file: index.js - line 62 - getReleaseTags - err', err)
       return error(404, {
         status: 404,
         error: err,
@@ -83,11 +84,13 @@ router.get(
   },
 )
 
-const returnError = res =>
-  error(res.status, {
+const returnError = res => {
+  console.log('🚀 - file: index.js - line 88 - returnError - res', res)
+  return error(res.status, {
     status: res.status,
     message: res.statusText,
   })
+}
 
 router.get(
   '/api/repos/:authorName/:repoName/releases/tags/:tagName',
