@@ -25,8 +25,11 @@ export function links() {
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
-  title: "New Remix App",
   viewport: "width=device-width,initial-scale=1",
+  title: "Read Changelogs",
+  description: `Read GitHub release notes for multiple packages on a single page.
+  No more switching back-and-forth searching for new features or breaking changes.`,
+  "og:image": "https://changelogs.vercel.app/og-img.png",
 });
 
 export default function App() {
