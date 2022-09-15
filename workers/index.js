@@ -72,36 +72,6 @@ const getReleaseTags = async ({ authorName, repoName, query, RELEASE }) => {
 router.get('/api/package/:packageName', async (request, { RELEASE }) => {
   const { packageName } = request.params
   return getPackageName(packageName, RELEASE)
-  // const { packageName } = request.params
-  // const KV_KEY = `package-${packageName}`
-  // const KV_DATA = await RELEASE.get(KV_KEY)
-  // const API_URL = `https://api.npms.io/v2/package/${packageName}`
-  // console.log('🔌 API_ENDPOINT', API_URL)
-  // if (isEmpty(KV_DATA)) {
-  //   try {
-  //     const response = await getJSON(API_URL)
-  //     const repoURL = get(response, 'collected.metadata.links.repository')
-  //     if (!repoURL) {
-  //       throw new Error('No repository found')
-  //     }
-  //     const [ownerName, repoName] =
-  //       repoURL
-  //         .split('https://github.com/')
-  //         .join('')
-  //         .split('/') || []
-  //     const data = { ownerName, repoName }
-  //     await RELEASE.put(KV_KEY, JSON.stringify(data))
-  //     return json(data)
-  //   } catch (err) {
-  //     return error(404, {
-  //       status: 404,
-  //       message: `Couldn't find repository named ${packageName}`,
-  //     })
-  //   }
-  // }
-
-  // const parsedData = JSON.parse(KV_DATA)
-  // return json(parsedData)
 })
 
 router.get(
@@ -112,21 +82,6 @@ router.get(
     return getReleaseTags({ authorName, repoName, query, RELEASE })
   },
 )
-
-// router.get('/api/repos/:name/:from/:to', async (request, { RELEASE }) => {
-//   const { name, from, to } = request.params
-//   const response = await getPackageName(name, RELEASE)
-//   if (response instanceof Response) {
-//     return response
-//   }
-//   const { ownerName, repoName } = response
-//   const releaseTags = await getReleaseTags({
-//     authorName: ownerName,
-//     repoName,
-//     query: { perPage: 100, page: 1 },
-//     RELEASE,
-//   })
-// })
 
 const returnError = res =>
   error(res.status, {
