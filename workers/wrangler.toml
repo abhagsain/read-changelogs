@@ -1,0 +1,6 @@
+name = "workers"
+main = "index.js"
+compatibility_date = "2022-08-30"
+kv_namespaces = [
+    { binding = "RELEASE", id = "4e3926ace38c4743a3cfadd7cee682fb", preview_id = "5dfd1dc25b2e4633893bea6cfb0cb6fe" },
+]
