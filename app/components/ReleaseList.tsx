@@ -1,10 +1,13 @@
+import { ExternalLinkIcon, LinkIcon, XIcon } from "@heroicons/react/solid";
+import { toast } from "react-hot-toast";
 import useChangeLogState from "../hooks/useChangelogState";
 import type { AutocompleteOption, LoaderData, IChangeLog } from "../types";
 import Changelog from "./Changelog";
 import MultiSelect from "./MultiSelect/MultiSelect";
 
 const ReleaseList = ({ releases }: { releases: LoaderData }) => {
-  const { setSelectedReleases, updateURLSearchParams } = useChangeLogState();
+  const { setSelectedReleases, updateReleaseVersion, removeReleaseVersion } =
+    useChangeLogState();
 
   const scrollToItem = (name: string) => {
     const item = document.getElementById(`#${name.toLowerCase()}`);
@@ -12,24 +15,37 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
   };
 
   const renderNav = () => {
-    if (releases.length <= 1) return null;
     return (
-      <nav className="sticky top-0 z-10 flex flex-wrap px-8 pt-2 -ml-4 space-x-4 backdrop-blur">
-        {releases.map((release) => (
+      <section className="sticky top-0 z-10 flex flex-wrap px-8 pt-2 -ml-4 space-x-4 backdrop-blur">
+        <div className="flex items-end justify-between w-full">
+          <div>
+            {releases.map((release) => (
+              <button
+                key={`nav-${release.repoName}`}
+                onClick={() => scrollToItem(release.repoName)}
+                className="px-4 py-2 text-lg rounded-md cursor-pointer hover:text-cyan-400 focus:ring focus:ring-white/40 focus:outline-none"
+              >
+                {release.repoName.toLowerCase()}
+              </button>
+            ))}
+          </div>
           <button
-            key={`nav-${release.repoName}`}
-            onClick={() => scrollToItem(release.repoName)}
-            className="px-4 py-2 text-lg rounded-md cursor-pointer hover:text-cyan-400 focus:ring focus:ring-white/40 focus:outline-none"
+            className="flex items-center px-4 py-2 space-x-3 rounded-md text-white/80 hover:text-white focus:ring focus:ring-white/40 focus:outline-none"
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              toast.success("URL Copied to Clipboard");
+            }}
           >
-            {release.repoName}
+            <LinkIcon className="w-5 h-5 transition-all duration-150 " />
+            <span>Copy URL</span>
           </button>
-        ))}
-      </nav>
+        </div>
+      </section>
     );
   };
 
-  const renderGithubURL = (releaseTagList: IChangeLog[]) => {
-    return releaseTagList?.[0].url;
+  const renderGithubURL = (releaseTagList?: IChangeLog[]) => {
+    return releaseTagList?.[0]?.html_url;
   };
 
   const renderCheckGithubMessage = () => (
@@ -40,7 +56,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-16">
       {renderNav()}
       <section className="flex flex-col justify-start space-y-10">
         {releases?.map((release) => {
@@ -63,8 +79,22 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
             >
               <div className="flex items-center justify-between px-8 space-x-4">
                 <div className="flex items-center">
-                  <h2 className="my-4">{repoName}</h2>
-                  {renderGithubURL(release.releaseTagsList)}
+                  <div className="flex items-center space-x-3">
+                    <h2 className="my-4">{repoName}</h2>
+                    <div className="not-prose">
+                      <a
+                        href={renderGithubURL(
+                          release.changeLogs as IChangeLog[]
+                        )}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="transition-colors duration-150 text-white/40 hover:text-white focus:ring "
+                        title={`View ${repoName} on Github`}
+                      >
+                        <ExternalLinkIcon className="w-5 h-5 t" />
+                      </a>
+                    </div>
+                  </div>
                   {!defaultChangeLogVersions.length
                     ? renderCheckGithubMessage()
                     : null}
@@ -81,14 +111,29 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                     defaultValue={defaultChangeLogVersions}
                     isSearchable
                   />
-                  <button
-                    type="submit"
-                    onClick={() => {
-                      updateURLSearchParams(repoName);
-                    }}
-                  >
-                    Search
-                  </button>
+                  <div className="flex items-center space-x-5">
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        updateReleaseVersion(repoName);
+                      }}
+                    >
+                      Search
+                    </button>
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        if (
+                          confirm(
+                            `Are you sure you want to remove the changelogs for ${repoName}?`
+                          )
+                        )
+                          removeReleaseVersion(repoName);
+                      }}
+                    >
+                      <XIcon className="w-8 h-8 rounded-lg p-1.5 bg-white/20 hover:bg-white/30 transition-colors duration-200" />
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-4 px-8 lg:grid-cols-2">
