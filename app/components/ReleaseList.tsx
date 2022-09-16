@@ -6,8 +6,11 @@ import Changelog from "./Changelog";
 import MultiSelect from "./MultiSelect/MultiSelect";
 
 const ReleaseList = ({ releases }: { releases: LoaderData }) => {
-  const { setSelectedReleases, updateReleaseVersion, removeReleaseVersion } =
-    useChangeLogState();
+  const {
+    setSelectedReleases,
+    updateVersionAndNavigate,
+    removeReleaseVersionAndNavigate,
+  } = useChangeLogState();
 
   const scrollToItem = (name: string) => {
     const item = document.getElementById(`#${name.toLowerCase()}`);
@@ -115,7 +118,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                     <button
                       type="submit"
                       onClick={() => {
-                        updateReleaseVersion(repoName);
+                        updateVersionAndNavigate(repoName);
                       }}
                     >
                       Search
@@ -128,7 +131,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                             `Are you sure you want to remove the changelogs for ${repoName}?`
                           )
                         )
-                          removeReleaseVersion(repoName);
+                          removeReleaseVersionAndNavigate(repoName);
                       }}
                     >
                       <XIcon className="w-8 h-8 rounded-lg p-1.5 bg-white/20 hover:bg-white/30 transition-colors duration-200" />

@@ -20,7 +20,7 @@ const useChangeLogState = () => {
     actionType: "add" | "remove";
     versions?: AutocompleteOption[];
   }) => {
-    const updatesSearchParams = new URLSearchParams(releaseVersions);
+    const updatedRoute = new URLSearchParams(releaseVersions);
     const selectedReleaseVersions = (versions || selectedReleases)
       .map((tag) => tag.value)
       .join(",");
@@ -28,18 +28,18 @@ const useChangeLogState = () => {
       toast.error("Please select release versions");
       return;
     }
-    if (updatesSearchParams.has(name) && actionType === "add") {
-      updatesSearchParams.set(name, `${selectedReleaseVersions}`);
-    } else if (updatesSearchParams.has(name) && actionType === "remove") {
-      updatesSearchParams.delete(name);
+    if (updatedRoute.has(name) && actionType === "add") {
+      updatedRoute.set(name, `${selectedReleaseVersions}`);
+    } else if (updatedRoute.has(name) && actionType === "remove") {
+      updatedRoute.delete(name);
     } else {
-      updatesSearchParams.append(name, `${selectedReleaseVersions}`);
+      updatedRoute.append(name, `${selectedReleaseVersions}`);
     }
 
-    return updatesSearchParams;
+    return updatedRoute;
   };
 
-  const updateReleaseVersion = (
+  const updateVersionAndNavigate = (
     name: string,
     versions?: AutocompleteOption[]
   ) => {
@@ -53,7 +53,7 @@ const useChangeLogState = () => {
     }
   };
 
-  const removeReleaseVersion = (
+  const removeReleaseVersionAndNavigate = (
     name: string,
     versions?: AutocompleteOption[]
   ) => {
@@ -71,8 +71,8 @@ const useChangeLogState = () => {
   return {
     selectedReleases,
     setSelectedReleases,
-    updateReleaseVersion,
-    removeReleaseVersion,
+    updateVersionAndNavigate,
+    removeReleaseVersionAndNavigate
   };
 };
 

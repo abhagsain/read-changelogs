@@ -21,7 +21,7 @@ const SearchForm = ({
   const [id] = useState(uniqueId());
   const fetcher = useFetcher();
   const [packageName, setPackageName] = useState("");
-  const { selectedReleases, setSelectedReleases, updateReleaseVersion: navigateToURL } =
+  const { selectedReleases, setSelectedReleases, updateVersionAndNavigate } =
     useChangeLogState();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const SearchForm = ({
     }
     try {
       const name = form.get("name") as string;
-      navigateToURL(name);
+      updateVersionAndNavigate(name);
     } catch (error: any) {
       toast.error(error.message);
       console.log("🚀 - file: index.tsx - line 84 - onSubmit - error", error);
