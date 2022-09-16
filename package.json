@@ -6,6 +6,8 @@
     "build:css": "npm run generate:css -- --minify",
     "build:remix": "remix build",
     "dev": "PORT=4002 run-p dev:*",
+    "worker-dev": "wrangler dev",
+    "worker-publish": "wrangler publish",
     "dev:css": "npm run generate:css -- --watch",
     "dev:remix": "remix dev",
     "generate:css": "npx tailwindcss -o ./app/tailwind.css",
