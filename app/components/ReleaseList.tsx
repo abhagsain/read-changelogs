@@ -1,9 +1,9 @@
 import useChangeLogState from "../hooks/useChangelogState";
-import type { AutocompleteOption, LoaderData } from "../types";
+import type { AutocompleteOption, LoaderData, IChangeLog } from "../types";
 import Changelog from "./Changelog";
 import MultiSelect from "./MultiSelect/MultiSelect";
 
-const ChangeLogList = ({ changeLogList }: { changeLogList: LoaderData }) => {
+const ReleaseList = ({ releases }: { releases: LoaderData }) => {
   const { setSelectedReleases, updateURLSearchParams } = useChangeLogState();
 
   const scrollToItem = (name: string) => {
@@ -12,44 +12,62 @@ const ChangeLogList = ({ changeLogList }: { changeLogList: LoaderData }) => {
   };
 
   const renderNav = () => {
-    if (changeLogList.length <= 1) return null;
+    if (releases.length <= 1) return null;
     return (
-      <nav className="sticky top-0 z-10 flex flex-wrap px-8 space-x-4 backdrop-blur">
-        {changeLogList.map((release) => (
-          <div
+      <nav className="sticky top-0 z-10 flex flex-wrap px-8 pt-2 -ml-4 space-x-4 backdrop-blur">
+        {releases.map((release) => (
+          <button
             key={`nav-${release.repoName}`}
             onClick={() => scrollToItem(release.repoName)}
-            className="py-2 text-lg cursor-pointer hover:text-cyan-400"
+            className="px-4 py-2 text-lg rounded-md cursor-pointer hover:text-cyan-400 focus:ring focus:ring-white/40 focus:outline-none"
           >
             {release.repoName}
-          </div>
+          </button>
         ))}
       </nav>
     );
   };
 
+  const renderGithubURL = (releaseTagList: IChangeLog[]) => {
+    return releaseTagList?.[0].url;
+  };
+
+  const renderCheckGithubMessage = () => (
+    <p className="m-0 ml-4">
+      If there are no release notes, please check the CHANGELOG.md on the github
+      repository
+    </p>
+  );
+
   return (
     <div className="space-y-4">
       {renderNav()}
       <section className="flex flex-col justify-start space-y-10">
-        {changeLogList?.map((changeLog) => {
-          const repoName = changeLog.repoName;
-          const options = changeLog.releaseTagsList.map((tag) => ({
+        {releases?.map((release) => {
+          const repoName = release.repoName;
+          const options = release.releaseTagsList.map((tag) => ({
             label: tag.name,
             value: tag.name,
           }));
           const defaultChangeLogVersions = [
-            ...changeLog.changeLogs.map((log) => ({
+            ...release.changeLogs.map((log) => ({
               label: log?.tag_name,
               value: log?.tag_name,
             })),
           ];
 
-          return changeLog.changeLogs ? (
-            <div id={`#${changeLog.repoName.toLowerCase()}`}>
+          return (
+            <div
+              id={`#${release.repoName.toLowerCase()}`}
+              key={release.repoName}
+            >
               <div className="flex items-center justify-between px-8 space-x-4">
                 <div className="flex items-center">
                   <h2 className="my-4">{repoName}</h2>
+                  {renderGithubURL(release.releaseTagsList)}
+                  {!defaultChangeLogVersions.length
+                    ? renderCheckGithubMessage()
+                    : null}
                 </div>
                 <div className="flex items-center space-x-3">
                   <MultiSelect
@@ -74,16 +92,16 @@ const ChangeLogList = ({ changeLogList }: { changeLogList: LoaderData }) => {
                 </div>
               </div>
               <div className="grid grid-cols-1 gap-4 px-8 lg:grid-cols-2">
-                {changeLog.changeLogs.map((release) => (
+                {release.changeLogs.map((release) => (
                   <Changelog changeLog={release} key={release?.node_id} />
                 ))}
               </div>
             </div>
-          ) : null;
+          );
         })}
       </section>
     </div>
   );
 };
 
-export default ChangeLogList;
+export default ReleaseList;

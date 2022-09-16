@@ -1206,6 +1206,14 @@ video {
   margin-left: auto;
 }
 
+.-ml-4 {
+  margin-left: -1rem;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
 }
@@ -1274,12 +1282,12 @@ video {
   scroll-padding-top: 18rem;
 }
 
-.grid-cols-1 {
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -1328,16 +1336,22 @@ video {
   margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-y-10 > :not([hidden]) ~ :not([hidden]) {
@@ -1350,12 +1364,6 @@ video {
   --tw-space-x-reverse: 0;
   margin-right: calc(0.75rem * var(--tw-space-x-reverse));
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-y-1 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
 
 .space-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -1420,14 +1428,14 @@ video {
   padding-right: 2rem;
 }
 
-.py-2 {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-}
-
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .py-10 {
@@ -1440,6 +1448,10 @@ video {
   padding-bottom: 0.625rem;
 }
 
+.pt-2 {
+  padding-top: 0.5rem;
+}
+
 .pl-3 {
   padding-left: 0.75rem;
 }
@@ -1448,14 +1460,14 @@ video {
   padding-right: 2.5rem;
 }
 
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
 .text-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .font-medium {
@@ -1543,6 +1555,11 @@ video {
   border-color: rgb(99 102 241 / var(--tw-border-opacity));
 }
 
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .focus\:outline:focus {
   outline-style: solid;
 }
@@ -1557,9 +1574,19 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.focus\:ring:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
 .focus\:ring-accent:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(64 133 247 / var(--tw-ring-opacity));
+}
+
+.focus\:ring-white\/40:focus {
+  --tw-ring-color: rgb(255 255 255 / 0.4);
 }
 
 .focus\:ring-white\/80:focus {
@@ -1574,6 +1601,28 @@ video {
 .prose-a\:text-cyan-500 :is(:where(a):not(:where([class~="not-prose"] *))) {
   --tw-text-opacity: 1;
   color: rgb(6 182 212 / var(--tw-text-opacity));
+}
+
+.prose-code\:rounded :is(:where(code):not(:where([class~="not-prose"] *))) {
+  border-radius: 0.25rem;
+}
+
+.prose-code\:bg-black\/40 :is(:where(code):not(:where([class~="not-prose"] *))) {
+  background-color: rgb(0 0 0 / 0.4);
+}
+
+.prose-code\:py-2 :is(:where(code):not(:where([class~="not-prose"] *))) {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.prose-code\:px-2 :is(:where(code):not(:where([class~="not-prose"] *))) {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.prose-code\:text-white\/80 :is(:where(code):not(:where([class~="not-prose"] *))) {
+  color: rgb(255 255 255 / 0.8);
 }
 
 .prose-img\:rounded-xl :is(:where(img):not(:where([class~="not-prose"] *))) {

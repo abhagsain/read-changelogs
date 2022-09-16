@@ -6,7 +6,7 @@ import {
   getNameAndURLFromPackageName,
   getReleaseTags
 } from "../api.server";
-import ChangeLogList from "../components/ChangelogList";
+import ReleaseList from "../components/ReleaseList";
 import SearchForm from "../components/SearchForm";
 import { FETCH_RELEASE_TAGS } from "../constants";
 import type { LoaderData } from "../types";
@@ -29,7 +29,7 @@ export default function Index() {
   return (
     <div className="mx-auto max-w-[90%] my-16 space-y-40">
       <SearchForm />
-      {releases.length ? <ChangeLogList changeLogList={releases} /> : null}
+      {releases.length ? <ReleaseList releases={releases} /> : null}
     </div>
   );
 }
