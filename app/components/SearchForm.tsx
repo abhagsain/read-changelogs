@@ -21,7 +21,7 @@ const SearchForm = ({
   const [id] = useState(uniqueId());
   const fetcher = useFetcher();
   const [packageName, setPackageName] = useState("");
-  const { selectedReleases, setSelectedReleases, updateURLSearchParams } =
+  const { selectedReleases, setSelectedReleases, updateVersionAndNavigate } =
     useChangeLogState();
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const SearchForm = ({
     }
     try {
       const name = form.get("name") as string;
-      updateURLSearchParams(name);
+      updateVersionAndNavigate(name);
     } catch (error: any) {
       toast.error(error.message);
       console.log("🚀 - file: index.tsx - line 84 - onSubmit - error", error);
@@ -107,7 +107,7 @@ const SearchForm = ({
                 onClick={fetchReleaseTags}
                 disabled={!packageName?.trim()}
                 type="button"
-                className="relative dark:active:bg-white/20 inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium dark:bg-secondary text-gray-700 dark:text-white/95 rounded-r-md bg-gray-50 hover:bg-white/20 focus:border-indigo-500 focus:outline-accent"
+                className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium text-gray-700 dark:active:bg-white/20 dark:bg-secondary dark:text-white/95 rounded-r-md bg-gray-50 hover:bg-white/20 focus:border-indigo-500 focus:outline-accent"
               >
                 <SearchIcon
                   className="w-5 h-5 text-gray-400"
@@ -137,7 +137,7 @@ const SearchForm = ({
               </div>
               <button
                 type="submit"
-                className="px-4 py-2 mt-3 ml-auto transition-colors duration-100 rounded bg-secondary hover:bg-white/80"
+                className="px-4 py-2 mt-3 ml-auto transition-colors duration-100 rounded bg-secondary hover:bg-opacity-75"
               >
                 Submit
               </button>

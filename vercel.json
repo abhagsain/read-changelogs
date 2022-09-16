@@ -1,0 +1,13 @@
+{
+    "headers": [
+        {
+            "source": "/changelogs/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=172800, s-maxage=864000"
+                }
+            ]
+        }
+    ]
+}

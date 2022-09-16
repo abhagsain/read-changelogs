@@ -1,60 +1,26 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
-import {
-  getChangelogList,
-  getNameAndURLFromPackageName,
-  getReleaseTags
-} from "../api.server";
-import ReleaseList from "../components/ReleaseList";
+import { Link } from "@remix-run/react";
+import getReleaseTagsFromWorker from "../actionsFunctions/getReleaseTags";
 import SearchForm from "../components/SearchForm";
-import { FETCH_RELEASE_TAGS } from "../constants";
-import type { LoaderData } from "../types";
-import { parseDynamicSearchParams } from "../utils";
-
-export async function loader({ request }: LoaderArgs) {
-  const url = new URL(request.url);
-  const term = url.searchParams;
-  const formValues = parseDynamicSearchParams(term);
-  const response = await getChangelogList(formValues);
-  if (response instanceof Response) {
-    return response;
-  }
-  return json<LoaderData>(response);
-}
 
 export default function Index() {
-  const releases = useLoaderData() as unknown as LoaderData;
-
   return (
     <div className="mx-auto max-w-[90%] my-16 space-y-40">
-      <SearchForm />
-      {releases.length ? <ReleaseList releases={releases} /> : null}
+      <div className="flex flex-col">
+        <div className="px-8 not-prose">
+          <h1 className="text-lg lg:text-3xl">
+            Read Changelogs For Multiple Packages On A Single Page
+          </h1>
+        </div>
+        <SearchForm />
+        <div className="px-8 not-prose text-cyan-500">
+          <Link to="/changelogs/react=v16.0.0%2Cv17.0.0%2Cv18.0.0&react-redux=v8.0.0%2Cv7.0.1%2Cv6.0.0">
+            Or Read changelog for React v16.0.0,v17.0.0,v18.0.0 and react-redux
+            v6.0.0,v7.0.1,v8.0.0,
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
 
-export async function action({ request }: ActionArgs) {
-  const form = await request.formData();
-  const values = Object.fromEntries(form.entries());
-  const packageName = values.name as string;
-  const type = values.type as string;
-  switch (request.method.toLowerCase()) {
-    case "post": {
-      if (type === FETCH_RELEASE_TAGS) {
-        try {
-          const { ownerName, repoName } = await getNameAndURLFromPackageName(
-            packageName
-          );
-          const releases = await getReleaseTags(ownerName, repoName);
-          return json({ type: FETCH_RELEASE_TAGS, releases });
-        } catch (error: any) {
-          console.log("🚀 - file: index.tsx - line 52 - action - error", error)
-          return json({ error: `${packageName} not found` }, { status: 404 });
-        }
-      }
-    }
-  }
-
-  return json({ error: "Invalid request" }, 400);
-}
+export const action = getReleaseTagsFromWorker;
