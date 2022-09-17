@@ -43,7 +43,7 @@ export const parseDynamicSearchParams = (searchParams: URLSearchParams) => {
         .split(",")
         .filter((versionNumber) => semver.valid(versionNumber))
         .sort(semver.compare);
-      return [...acc, { name, versions }];
+      return [...acc, { name: name.toLowerCase(), versions }];
     },
     []
   );
