@@ -35,3 +35,9 @@ This projet uses
 - [Remix](https://remix.run/docs/en/v1)
 - [TailwindCSS](https://tailwindcss.com/)
 - [Itty Router](https://github.com/kwhitley/itty-router) for CF Worker routing
+
+__ 
+
+Love to build stuff? 
+
+Connect with me on [Twitter](https://twitter.com/abhagsain) or [LinkedIn](https://linkedin.com/in/anurag-bhagsain/) :)
