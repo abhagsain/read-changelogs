@@ -27,7 +27,13 @@ Once the CLI is installed create a KV namespae
 - Replace the `id` and `preview_id` (from the second command 👆) in `wrangler.toml`
 - Now you can run `npm run worker-dev` to run the worker locally and `npm run worker-publish` to publish your changes to Cloudflare. (Again you won't be charged anyting for publishing the worker)
 
+## Found this useful?
+
+<img width="400" alt="og-img" src="https://user-images.githubusercontent.com/36589645/190842490-03fb820c-4efd-4c8e-ba1f-c6e680c94433.gif">
+
+
 ## Tech Stack
+
 
 This projet uses
 
