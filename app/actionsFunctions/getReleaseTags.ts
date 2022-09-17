@@ -14,7 +14,7 @@ async function getReleaseTagsFromWorker({ request }: ActionArgs) {
       if (type === FETCH_RELEASE_TAGS) {
         try {
           const { ownerName, repoName } = await getNameAndURLFromPackageName(
-            packageName
+            packageName.toLowerCase()
           );
           const releases = await getReleaseTags(ownerName, repoName);
           return json({ type: FETCH_RELEASE_TAGS, releases });
