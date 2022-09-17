@@ -83,7 +83,7 @@ const SearchForm = ({
         className="relative z-50 flex-col items-center w-full space-x-4"
         onSubmit={onSubmit}
       >
-        <div className="flex items-end space-x-4">
+        <div className="flex flex-col items-end space-x-4 md:flex-row">
           <div className="flex flex-col w-full max-w-sm space-y-1">
             <label
               htmlFor="name"
@@ -107,7 +107,7 @@ const SearchForm = ({
                 onClick={fetchReleaseTags}
                 disabled={!packageName?.trim()}
                 type="button"
-                className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium text-gray-700 dark:active:bg-white/20 dark:bg-secondary dark:text-white/95 rounded-r-md bg-gray-50 hover:bg-white/20 focus:border-indigo-500 focus:outline-accent"
+                className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium text-gray-700 dark:active:bg-white/20 dark:bg-secondary dark:text-white/95 rounded-r-md bg-gray-50 hover:bg-white/20 focus:border-indigo-500 focus:outline-accent "
               >
                 <SearchIcon
                   className="w-5 h-5 text-gray-400"
@@ -119,7 +119,7 @@ const SearchForm = ({
           </div>
           {releases.length ? (
             <>
-              <div className="flex flex-col w-full max-w-sm space-y-1">
+              <div className="flex flex-col w-full max-w-sm mt-3 space-y-1 md:mt-0">
                 <Label htmlFor="versions">Select Versions</Label>
                 <MultiSelect
                   isMulti
@@ -135,7 +135,7 @@ const SearchForm = ({
               </div>
               <button
                 type="submit"
-                className="px-4 py-2 mt-3 ml-auto transition-colors duration-100 rounded bg-secondary hover:bg-opacity-75"
+                className="w-full px-4 py-2 mt-3 ml-auto transition-colors duration-100 rounded bg-secondary hover:bg-opacity-75 md:w-auto md:mt-0"
               >
                 Submit
               </button>
