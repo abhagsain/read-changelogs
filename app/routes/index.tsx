@@ -6,7 +6,7 @@ export default function Index() {
   return (
     <div className="mx-auto max-w-[90%] my-16 space-y-40">
       <div className="flex flex-col">
-        <div className="px-4 lg:px-8 not-prose">
+        <div className=" lg:px-8 not-prose">
           <h1 className="text-lg lg:text-3xl">
             Read Changelogs For Multiple Packages On A Single Page
           </h1>
