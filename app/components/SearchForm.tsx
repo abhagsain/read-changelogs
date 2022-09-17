@@ -77,7 +77,7 @@ const SearchForm = ({
   }));
 
   return (
-    <div className="flex px-8 py-10">
+    <div className="flex py-10 lg:px-8">
       <form
         autoComplete="off"
         className="relative z-50 flex-col items-center w-full space-x-4"
@@ -124,14 +124,12 @@ const SearchForm = ({
                 <MultiSelect
                   isMulti
                   key={`${id}-${options.length}`}
-                  // autoFocus={!!options.length}
                   name="versions"
                   id="versions"
                   options={options}
                   onChange={(values) => {
                     setSelectedReleases(values as AutocompleteOption[]);
                   }}
-                  // defaultMenuIsOpen={!!options.length}
                   isSearchable
                 />
               </div>

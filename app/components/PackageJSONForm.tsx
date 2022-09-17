@@ -59,7 +59,7 @@ const PackageJSONForm = (props: Props) => {
       <form
         onSubmit={handleSubmit}
         autoComplete="off"
-        className="flex flex-col justify-end max-w-3xl px-8 space-y-4"
+        className="flex flex-col justify-end max-w-3xl px-4 lg:px-8 space-y-4"
       >
         <div className="space-y-1">
           <Label htmlFor="packageJSON">Enter Package.json</Label>

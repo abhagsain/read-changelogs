@@ -17,9 +17,9 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
     item?.scrollIntoView(true);
   };
 
-  const renderNav = () => {
+  const renderStickyNav = () => {
     return (
-      <section className="sticky top-0 z-10 flex flex-wrap px-8 pt-2 -ml-4 space-x-4 backdrop-blur">
+      <section className="sticky top-0 z-10 flex flex-wrap px-4 pt-2 -ml-4 space-x-4 lg:px-8 backdrop-blur">
         <div className="flex items-end justify-between w-full">
           <div>
             {releases.map((release) => (
@@ -60,7 +60,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
 
   return (
     <div className="space-y-16">
-      {renderNav()}
+      {renderStickyNav()}
       <section className="flex flex-col justify-start space-y-10">
         {releases?.map((release) => {
           const repoName = release.repoName;
@@ -80,9 +80,9 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
               id={`#${release.repoName.toLowerCase()}`}
               key={release.repoName}
             >
-              <div className="flex items-center justify-between px-8 space-x-4">
+              <div className="flex flex-col justify-between md:items-center md:flex-row lg:px-8 md:space-x-4">
                 <div className="flex items-center">
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center md:space-x-3">
                     <h2 className="my-4">{repoName}</h2>
                     <div className="not-prose">
                       <a
@@ -102,7 +102,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                     ? renderCheckGithubMessage()
                     : null}
                 </div>
-                <div className="flex items-center space-x-3">
+                <div className="flex flex-col space-x-3 space-y-5 md:items-center md:flex-row md:space-y-0">
                   <MultiSelect
                     isMulti
                     name="versions"
@@ -117,6 +117,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                   <div className="flex items-center space-x-5">
                     <button
                       type="submit"
+                      className="flex-1"
                       onClick={() => {
                         updateVersionAndNavigate(repoName);
                       }}
@@ -139,7 +140,7 @@ const ReleaseList = ({ releases }: { releases: LoaderData }) => {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 gap-4 px-8 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 lg:px-8 lg:grid-cols-2">
                 {release.changeLogs.map((release) => (
                   <Changelog changeLog={release} key={release?.node_id} />
                 ))}

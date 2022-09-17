@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
   useFetchers,
+  useLocation,
   useTransition,
 } from "@remix-run/react";
 import NProgress from "nprogress";
@@ -15,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import Layout from "./Layout";
 import styles from "./tailwind.css";
 import npProgress from "../styles/np-progress.css";
+import splitbee from '@splitbee/web'
 
 export function links() {
   return [
@@ -54,6 +56,11 @@ export default function App() {
     },
     [transition.state, fetchers]
   );
+  const location = useLocation();
+
+  useEffect(() => {
+    splitbee.init();
+  }, [location]);
 
   useEffect(() => {
     if (state === "loading") NProgress.start();

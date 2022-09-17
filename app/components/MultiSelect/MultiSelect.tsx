@@ -8,6 +8,8 @@ interface Props extends SelectProps {}
 const Input = ({ type, ...props }: any) => <components.Input {...props} />;
 
 const MultiSelect = (props: Props) => {
+  // styles for react-select are breaking because of hydration mismatch, that's why it's only rendered on client. 
+  // But sometimes styles break on client too, so need to investigate further, it works most of the time though on page refresh
   return (
     <ClientOnly
       fallback={
