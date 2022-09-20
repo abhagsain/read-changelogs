@@ -45,7 +45,7 @@ const useChangeLogState = () => {
   ) => {
     const route = getRoute({
       name,
-      actionType: "remove",
+      actionType: "add",
       versions,
     });
     if (route) {
