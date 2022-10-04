@@ -13,9 +13,10 @@ import SearchForm from "../../components/SearchForm";
 import type { LoaderData } from "../../types";
 import { parseDynamicSearchParams } from "../../utils";
 
+const BROWSER_CACHE_TTL = 60 * 60 * 24 * 2; // 2 days
+const CDN_CACHE_TTL = 60 * 60 * 24 * 10; // 10 days
+
 export const headers: HeadersFunction = () => {
-  const BROWSER_CACHE_TTL = 60 * 60 * 24 * 2; // 2 days
-  const CDN_CACHE_TTL = 60 * 60 * 24 * 10; // 10 days
   return {
     "Cache-Control": `public, max-age=${BROWSER_CACHE_TTL}, s-maxage=${CDN_CACHE_TTL}`,
   };
@@ -57,7 +58,11 @@ export async function loader({ request, params }: LoaderArgs) {
   if (response instanceof Response) {
     return response;
   }
-  return json<LoaderData>(response);
+  return json<LoaderData>(response, {
+    headers: {
+      "Cache-Control": `public, max-age=${BROWSER_CACHE_TTL}, s-maxage=${CDN_CACHE_TTL}`,
+    },
+  });
 }
 
 export default function Index() {
